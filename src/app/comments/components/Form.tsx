@@ -14,10 +14,13 @@ const Form = () => {
   });
   const ref = useRef<HTMLFormElement>(null);
   useEffect(() => {
+    if (state.message) {
+      alert(state.message);
+    }
     if (state.statusCode !== 400) {
       ref.current?.reset();
     }
-    console.log('Form', state);
+    // console.log('Form', state);
   }, [state]);
 
   return (

@@ -15,7 +15,7 @@ import React, { useEffect } from 'react';
 // }
 const Page = () => {
   useEffect(() => {
-    console.log('1');
+    // console.log('1');
   }, []);
   return <div>Page</div>;
 };

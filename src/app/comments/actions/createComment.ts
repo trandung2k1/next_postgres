@@ -4,23 +4,24 @@ import { revalidatePath } from "next/cache";
 import { initialState } from "../components/Form";
 export async function createComment(prevState: initialState, formData: FormData) {
   try {
-    console.log("prev state", prevState);
-    const rawFormData = {
-      name: formData.get('name'),
-      content: formData.get('content'),
-    };
-    const data: {
-      name: string, content: string
-    } = JSON.parse(JSON.stringify(rawFormData))
-    if (!data.name || !data.content) {
+    // console.log("prev state", prevState);
+    // const rawFormData = {
+    //   name: formData.get('name'),
+    //   content: formData.get('content'),
+    // };
+    // const data: {
+    //   name: string, content: string
+    // } = JSON.parse(JSON.stringify(rawFormData))
+    const name = formData.get('name')?.toString();
+    const content = formData.get('content')?.toString();
+    if (!name || !content) {
       return {
         statusCode: 400,
         message: "Name and content is required"
       }
     } else {
-      const result =
-        await sql`INSERT INTO Comments (Name, Content, CreatedAt) VALUES (${data.name}, ${data.content}, ${JSON.stringify(new Date())});`;
-      console.log(result);
+      await sql`INSERT INTO Comments (Name, Content, CreatedAt) VALUES (${name}, ${content}, ${JSON.stringify(new Date())});`;
+      // console.log(result);
       revalidatePath("/comments")
       return {
         statusCode: 200,

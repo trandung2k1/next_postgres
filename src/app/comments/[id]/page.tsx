@@ -14,15 +14,18 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const revalidatedData = await fetch(`${process.env.BASE_URL}/api/comments/${id}`, {
     next: { revalidate: 10 },
   });
-
   // getStaticProps
   // const staticData = await fetch(`${process.env.BASE_URL}/api/comments/${id}`, {
   //   cache: 'force-cache',
   // });
-
   const data = await revalidatedData.json();
-  console.log(data);
-  return <div>Page</div>;
+  // console.log(data);
+  return (
+    <div>
+      <h1>Name: {data?.name}</h1>
+      <p>Content: {data?.content}</p>
+    </div>
+  );
 };
 
 export default Page;
